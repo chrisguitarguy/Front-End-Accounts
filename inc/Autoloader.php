@@ -10,7 +10,7 @@
  * @license     http://opensource.org/licenses/MIT MIT
  */
 
-namespace Chrisguitargy\FrontEndAccounts;
+namespace Chrisguitarguy\FrontEndAccounts;
 
 !defined('ABSPATH') && exit;
 

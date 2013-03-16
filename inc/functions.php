@@ -12,6 +12,8 @@
 
 !defined('ABSPATH') && exit;
 
+use Chrisguitarguy\FrontEndAccounts as Accounts;
+
 /**
  * Template Tag for use with this plugin.
  *
@@ -21,7 +23,7 @@
  */
 function the_account()
 {
-    do_action('frontend_account_content');
+    do_action('frontend_accounts_content');
 }
 
 /**
@@ -47,7 +49,7 @@ function frontend_accounts_init()
  */
 function frontend_accounts_load()
 {
-    
+    Accounts\Rewrite::init();
 }
 
 /**
@@ -78,4 +80,33 @@ function frontend_accounts_add_role()
 function frontend_accounts_remove_role()
 {
     remove_role(FE_ACCOUNTS_ROLE);
+}
+
+/**
+ * Activation hook.
+ *
+ * @since   0.1
+ * @uses    frontend_accounts_add_role
+ * @uses    flush_rewrite_rules
+ * @return  void
+ */
+function frontend_accounts_activate()
+{
+    frontend_accounts_add_role();
+    Accounts\Rewrite::instance()->addRule();
+    flush_rewrite_rules();
+}
+
+/**
+ * Deactivation hook.
+ *
+ * @since   0.1
+ * @uses    frontend_accounts_remove_role
+ * @uses    flush_rewrite_rule
+ * @return  void
+ */
+function frontend_accounts_deactivate()
+{
+    frontend_accounts_remove_role();
+    flush_rewrite_rules();
 }
