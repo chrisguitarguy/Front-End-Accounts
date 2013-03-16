@@ -50,6 +50,13 @@ function frontend_accounts_init()
 function frontend_accounts_load()
 {
     Accounts\Rewrite::init();
+
+    if (!is_admin()) {
+        Accounts\Login::init();
+        Accounts\Account::init();
+        Accounts\ForgotPassword::init();
+        Accounts\ResetPassword::init();
+    }
 }
 
 /**
