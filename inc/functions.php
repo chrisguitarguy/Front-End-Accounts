@@ -61,6 +61,10 @@ function frontend_accounts_load()
             Accounts\Register::init();
         }
     }
+
+    if (!apply_filters('frontend_accounts_disable_themes', false)) {
+        frontend_accounts_register_themes();
+    }
 }
 
 /**
@@ -120,4 +124,16 @@ function frontend_accounts_deactivate()
 {
     frontend_accounts_remove_role();
     flush_rewrite_rules();
+}
+
+/**
+ * Register our theme directory.
+ *
+ * @since   0.1
+ * @uses    register_theme_directory
+ * @return  void
+ */
+function frontend_accounts_register_themes()
+{
+    register_theme_directory(dirname(__DIR__) . '/themes');
 }
