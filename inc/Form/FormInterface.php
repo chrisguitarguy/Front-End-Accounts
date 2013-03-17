@@ -32,6 +32,15 @@ interface FormInterface
     public function render();
 
     /**
+     * Validate the field and return the validated data and and array of errors
+     *
+     * @since   0.1
+     * @access  public
+     * @return  array (array(), array()) Data, Errors
+     */
+    public function validate();
+
+    /**
      * Bind data to the form for validation or display.
      *
      * @since   0.1
@@ -61,4 +70,13 @@ interface FormInterface
      * @return  boolean True if the field was present and remove, false otherwise
      */
     public function removeField($field_id);
+
+    /**
+     * Get all the fields.
+     *
+     * @since   0.1
+     * @access  public
+     * @return  array
+     */
+    public function getFields();
 }
