@@ -38,6 +38,8 @@ class Multiple extends FieldBase implements FieldInterface
                 $attr,
                 $this->escHtml($label)
             );
+
+            echo '<br />';
         }
     }
 }
