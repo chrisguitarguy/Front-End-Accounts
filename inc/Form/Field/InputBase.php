@@ -32,7 +32,7 @@ abstract class InputBase extends FieldBase implements FieldInterface
         $attr = $this->getAdditionalAttributes();
 
         printf(
-            '<input type="%1%s" id="%2$s" name="%2$s" value="%3$s" %4$s />',
+            '<input type="%1$s" id="%2$s" name="%2$s" value="%3$s" %4$s />',
             $this->escAttr($t),
             $this->escAttr($this->getName()),
             'password' === $t ? '' : $this->escAttr($this->getValue()),
