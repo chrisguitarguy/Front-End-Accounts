@@ -84,15 +84,20 @@ abstract class FieldBase
         $res = $this->getValue();
 
         foreach ($this->args['validators'] as $validator) {
-            if ($validator instanceof ValidatorInterface) {
-                if ($this->args['errmsg']) {
-                    $validator->setMessage($this->args['errmsg']);
-                }
+            try {
+                if ($validator instanceof ValidatorInterface) {
+                    if ($this->args['errmsg']) {
+                        $validator->setMessage($this->args['errmsg']);
+                    }
 
-                $res = $validator->valid($res);
-            } elseif (is_callable($validator)) {
-                // it's up to the callable to throw exceptions...
-                $res = call_user_func($validator, $res);
+                    $res = $validator->valid($res);
+                } elseif (is_callable($validator)) {
+                    // it's up to the callable to throw exceptions...
+                    $res = call_user_func($validator, $res);
+                }
+            } catch (\Exception $e) {
+                $this->args['class'] .= ' error';
+                throw $e;
             }
         }
 
