@@ -69,6 +69,15 @@ interface FieldInterface
     public function render();
 
     /**
+     * Render the HTML for the fields label.
+     *
+     * @since   0.1
+     * @access  public
+     * @return  void
+     */
+    public function label();
+
+    /**
      * Validate the form field. Throws an exception if invalid.
      *
      * @since   0.1

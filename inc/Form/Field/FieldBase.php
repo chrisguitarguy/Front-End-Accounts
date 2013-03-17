@@ -100,6 +100,18 @@ abstract class FieldBase
     }
 
     /**
+     * @see     Chrisguitarguy\FrontEndAccounts\Form\Field\FieldInterface::validate()
+     */
+    public function label()
+    {
+        printf(
+            '<label for="%1$s">%2$s</label>',
+            $this->escAttr($this->getName()),
+            $this->escHtml($this->getArg('label', ''))
+        );
+    }
+
+    /**
      * Make sure an array has required values.
      *
      * @since   0.1
