@@ -49,7 +49,7 @@ abstract class SectionBase extends AccountBase
 
         do_action("frontend_accounts_before_wrap_{$s}", $additional);
         ?>
-        <div class="frontend-accounts-wrap">
+        <div class="frontend-accounts-wrap entry entry-content">
 
             <?php
             do_action("frontend_accounts_before_title_{$s}", $additional);
@@ -57,7 +57,7 @@ abstract class SectionBase extends AccountBase
             if (apply_filters("frontend_accouts_show_title_{$s}", true, $additional)) {
                 echo '<h2 class="frontend-accounts-title">',
                     apply_filters("frontend_accounts_title_{$s}", $this->getTitle(), $additional),
-                    '<h2>';
+                    '</h2>';
             }
 
             do_action("frontend_accounts_after_title_{$s}", $additional);
@@ -112,6 +112,11 @@ abstract class SectionBase extends AccountBase
     protected function getErrors()
     {
         return apply_filters('frontend_accounts_errors_' . $this->getName(), $this->errors);
+    }
+
+    protected function submit($msg)
+    {
+        return sprintf('<button type="submit" class="frontend-accounts-submit">%1$s</button>', esc_html($msg));
     }
 
     abstract protected function getName();

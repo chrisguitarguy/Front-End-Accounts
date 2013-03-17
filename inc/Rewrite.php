@@ -22,9 +22,6 @@ namespace Chrisguitarguy\FrontEndAccounts;
  */
 class Rewrite extends AccountBase
 {
-    const ACCOUNT_VAR       = 'fe_account';
-    const ADDITIONAL_VAR    = 'fe_account_add';
-
     private $section = null;
 
     private $additional = null;

@@ -16,6 +16,9 @@ namespace Chrisguitarguy\FrontEndAccounts;
 
 abstract class AccountBase
 {
+    const ACCOUNT_VAR       = 'fe_account';
+    const ADDITIONAL_VAR    = 'fe_account_add';
+
     private static $reg = array();
 
     public static function instance()
@@ -39,5 +42,31 @@ abstract class AccountBase
     protected function getRole()
     {
         return apply_filters('frontend_accounts_role', FE_ACCOUNTS_ROLE);
+    }
+
+    protected static function url($area, $additional=null)
+    {
+        global $wp_rewrite;
+
+        // maybe I should deal with trailingslash/non trailingslashhere?
+        if ($wp_rewrite->using_permalinks()) {
+            $path = "/account/{$area}";
+
+            if ($additional) {
+                $path .= '/' . $additional;
+            }
+        } else {
+            $q = array(
+                static::ACCOUNT_VAR => $area,
+            );
+
+            if ($additiona) {
+                $q[static::ADDITIONAL_VAR] = $additional;
+            }
+
+            $path = http_build_query($q);
+        }
+
+        return apply_filters('frontend_accounts_url', home_url($path), $area, $additional);
     }
 }
