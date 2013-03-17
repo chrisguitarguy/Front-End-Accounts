@@ -47,12 +47,12 @@ abstract class SectionBase extends AccountBase
     {
         $s = $this->getName();
 
-        do_action("frontend_accounts_before_wrap_{$s}", $additional);
+        $this->act('frontend_accounts_before_wrap', $s);
         ?>
         <div class="frontend-accounts-wrap entry entry-content">
 
             <?php
-            do_action("frontend_accounts_before_title_{$s}", $additional);
+            $this->act('frontend_accounts_before_title', $s);
 
             if (apply_filters("frontend_accouts_show_title_{$s}", true, $additional)) {
                 echo '<h2 class="frontend-accounts-title">',
@@ -60,7 +60,7 @@ abstract class SectionBase extends AccountBase
                     '</h2>';
             }
 
-            do_action("frontend_accounts_after_title_{$s}", $additional);
+            $this->act('frontend_accounts_after_title', $s);
 
             if (apply_filters("frontend_accounts_show_errors_{$s}", true, $additional)) {
                 foreach ($this->getErrors() as $key => $errmsg) {
@@ -68,24 +68,24 @@ abstract class SectionBase extends AccountBase
                 }
             }
 
-            do_action("frontend_accounts_before_form_{$s}", $additional);
+            $this->act('frontend_accounts_before_form', $s);
             ?>
 
-            <form class="frontend-accounts-form" method="post">
+            <form class="frontend-accounts-form <?php echo esc_attr($s); ?>" method="post">
 
                 <?php
-                do_action("frontend_accounts_before_fields_{$s}", $additional);
+                $this->act('frontend_accounts_before_fields', $s);
                 $this->showContent($additional);
-                do_action("frontend_accounts_after_fields_{$s}", $additional);
+                $this->act('frontend_accounts_after_fields', $s);
                 ?>
 
             </form>
 
-            <?php do_action("frontend_accounts_after_form_{$s}", $additional); ?>
+            <?php $this->act('frontend_accounts_after_form', $s); ?>
 
         </div>
         <?php
-        do_action("frontend_accounts_after_wrap_{$s}", $additional);
+        $this->act('frontend_accounts_after_wrap', $s);
     }
 
     public function addSection($sections)
@@ -93,6 +93,8 @@ abstract class SectionBase extends AccountBase
         $sections[] = $this->getName();
         return $sections;
     }
+
+    abstract public function getTitle();
 
     protected function addError($key, $err)
     {
@@ -123,5 +125,9 @@ abstract class SectionBase extends AccountBase
 
     abstract protected function showContent();
 
-    abstract protected function getTitle();
+    private function act($act, $section)
+    {
+        do_action($act, $section, $this);
+        do_action("{$act}_{$section}", $this);
+    }
 }

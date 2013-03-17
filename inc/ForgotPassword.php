@@ -18,15 +18,15 @@ class ForgotPassword extends SectionBase
 {
     private $form = null;
 
+    public function getTitle()
+    {
+        return esc_html__('Forgot Password', FE_ACCOUNTS_TD);
+    }
+
     protected function showContent()
     {
         $this->getForm()->render();
         echo '<p>', $this->submit(__('Reset Password', FE_ACCOUNTS_TD)), '</p>';
-    }
-
-    protected function getTitle()
-    {
-        return esc_html__('Forgot Password', FE_ACCOUNTS_TD);
     }
 
     protected function getName()

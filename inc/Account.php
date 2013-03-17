@@ -16,14 +16,14 @@ namespace Chrisguitarguy\FrontEndAccounts;
 
 class Account extends SectionBase
 {
+    public function getTitle()
+    {
+        return esc_html__('Account', FE_ACCOUNTS_TD);
+    }
+
     protected function showContent()
     {
         
-    }
-
-    protected function getTitle()
-    {
-        return esc_html__('Account', FE_ACCOUNTS_TD);
     }
 
     protected function getName()

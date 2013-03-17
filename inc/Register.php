@@ -18,6 +18,11 @@ class Register extends SectionBase
 {
     private $form = null;
 
+    public function getTitle()
+    {
+        return esc_html__('Register', FE_ACCOUNTS_TD);
+    }
+
     protected function showContent()
     {
         echo '<p>', esc_html__('A password will be sent to you via email.', FE_ACCOUNTS_TD), '</p>';
@@ -25,11 +30,6 @@ class Register extends SectionBase
         $this->getForm()->render();
 
         echo '<p>', $this->submit(__('Reset Password', FE_ACCOUNTS_TD)), '</p>';
-    }
-
-    protected function getTitle()
-    {
-        return esc_html__('Register', FE_ACCOUNTS_TD);
     }
 
     protected function getName()

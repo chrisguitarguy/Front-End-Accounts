@@ -20,12 +20,6 @@ class Login extends SectionBase
 {
     private $form = null;
 
-    protected function showContent()
-    {
-        $this->getForm()->render();
-        echo '<p>', $this->submit(__('Login', FE_ACCOUNTS_TD)), '</p>';
-    }
-
     public function initSection($additional)
     {
         if ('password_reset' === $additional) {
@@ -84,10 +78,17 @@ class Login extends SectionBase
         exit;
     }
 
-    protected function getTitle()
+    public function getTitle()
     {
         return esc_html__('Login', FE_ACCOUNTS_TD);
     }
+
+    protected function showContent()
+    {
+        $this->getForm()->render();
+        echo '<p>', $this->submit(__('Login', FE_ACCOUNTS_TD)), '</p>';
+    }
+
 
     protected function getName()
     {
