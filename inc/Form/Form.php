@@ -119,8 +119,10 @@ class Form implements FormInterface
         echo '</p>';
     }
 
-    protected function getFieldObject($type, $name, array $args)
+    protected function getFieldObject($name, array $args)
     {
+        $type = isset($args['type']) ? $args['type'] : 'text';
+
         $cls = 'DummyField';
 
         switch ($type) {
@@ -129,6 +131,9 @@ class Form implements FormInterface
             break;
         case 'password':
             $cls = 'PasswordInput';
+            break;
+        case 'hidden':
+            $cls = 'HiddenInput';
             break;
         case 'color':
             $cls = 'ColorInput';
