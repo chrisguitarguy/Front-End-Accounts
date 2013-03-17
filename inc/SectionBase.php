@@ -94,14 +94,12 @@ abstract class SectionBase extends AccountBase
         return $sections;
     }
 
-    abstract public function getTitle();
-
-    protected function addError($key, $err)
+    public function addError($key, $err)
     {
         $this->errors[$key] = $err;
     }
 
-    protected function removeError($key)
+    public function removeError($key)
     {
         if (isset($this->errors[$key])) {
             unset($this->errors[$key]);
@@ -111,10 +109,12 @@ abstract class SectionBase extends AccountBase
         return false;
     }
 
-    protected function getErrors()
+    public function getErrors()
     {
         return apply_filters('frontend_accounts_errors_' . $this->getName(), $this->errors);
     }
+
+    abstract public function getTitle();
 
     protected function submit($msg)
     {
