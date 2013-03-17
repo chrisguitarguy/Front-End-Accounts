@@ -22,6 +22,11 @@ class Form implements FormInterface
 
     private $bound = array();
 
+    public static function create(array $initial=array())
+    {
+        return new self($initial);
+    }
+
     public function __construct(array $initial=array())
     {
         $this->initial = $initial;
@@ -66,6 +71,7 @@ class Form implements FormInterface
     public function bind(array $data)
     {
         $this->bound = $data;
+        return $this;
     }
 
     /**
@@ -80,6 +86,8 @@ class Form implements FormInterface
         if (isset($this->initial[$field_id])) {
             $this->fields[$field_id]->setValue($this->initial[$field_id]);
         }
+
+        return $this;
     }
 
     /**
