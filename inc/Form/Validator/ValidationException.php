@@ -10,7 +10,7 @@
  * @license     http://opensource.org/licenses/MIT MIT
  */
 
-namespace Chrisguitarguy\FrontEndAccounts\Form\Field;
+namespace Chrisguitarguy\FrontEndAccounts\Form\Validator;
 
 /**
  * Throw when a a validator fails to OK a value.
