@@ -1,0 +1,60 @@
+/*
+Theme Name: Twenty Eleven with Front End Accounts
+Description: A twenty eleven child theme with front end accounts compatibility.
+Version: 0.1
+Author: Christopher Davis
+Author URI: http://christopherdavis.me
+License: MIT
+Template: twentyeleven
+*/
+
+.frontend-accounts-wrap {
+  background: #ddd;
+  border: 1px solid #d3d3d3;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  padding: 1.625em;
+  position: relative;
+  width: 68.9%;
+  box-sizing: border-box;
+  margin-bottom: 3em !important;
+}
+
+.frontend-accounts-form label {
+  display: block;
+}
+
+.frontend-accounts-form label.field-type-checkbox {
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+  margin-right: 1em;
+}
+
+.frontend-accounts-form input {
+  width: 98%;
+}
+
+.frontend-accounts-form input[type="checkbox"] {
+  width: auto;
+}
+
+#content .frontend-accounts-form p {
+  margin-bottom: 1em;
+}
+
+.frontend-accounts-form button[type="submit"] {
+  background: #222;
+  border: none;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  -webkit-box-shadow: 0px 1px 2px rgba(0,0,0,0.3);
+  -moz-box-shadow: 0px 1px 2px rgba(0,0,0,0.3);
+  box-shadow: 0px 1px 2px rgba(0,0,0,0.3);
+  color: #eee;
+  cursor: pointer;
+  font-size: 15px;
+  margin: 20px 0 0 0;
+  padding: 5px 22px;
+  text-shadow: 0 -1px 0 rgba(0,0,0,0.3);
+}
