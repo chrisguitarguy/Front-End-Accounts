@@ -178,6 +178,9 @@ class Form implements FormInterface
         case 'textarea':
             $cls = 'Textarea';
             break;
+        case 'checkbox':
+            $cls = 'Checkbox';
+            break;
         }
 
         $cls = "Chrisguitarguy\\FrontEndAccounts\\Form\\Field\\{$cls}";
