@@ -12,8 +12,6 @@
 
 namespace Chrisguitarguy\FrontEndAccounts\Form\Field;
 
-!defined('ABSPATH') && exit;
-
 /**
  * The interface for an individual field.
  *

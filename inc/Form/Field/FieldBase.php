@@ -15,8 +15,6 @@ namespace Chrisguitarguy\FrontEndAccounts\Form\Field;
 use Chrisguitarguy\FrontEndAccounts\Form\Validator\ValidatorInterface;
 use Chrisguitarguy\FrontEndAccounts\Form\Validator\ValidationException;
 
-!defined('ABSPATH') && exit;
-
 /**
  * Implement some common methods for fields.
  *

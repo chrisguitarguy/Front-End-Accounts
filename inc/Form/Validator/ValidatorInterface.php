@@ -12,8 +12,6 @@
 
 namespace Chrisguitarguy\FrontEndAccounts\Form\Validator;
 
-!defined('ABSPATH') && exit;
-
 /**
  * Validator object's check values and make sure they're okay. Validators can be
  * safely re-used.

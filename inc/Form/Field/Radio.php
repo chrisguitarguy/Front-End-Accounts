@@ -12,8 +12,6 @@
 
 namespace Chrisguitarguy\FrontEndAccounts\Form\Field;
 
-!defined('ABSPATH') && exit;
-
 class Radio extends FieldBase implements FieldInterface
 {
     /**

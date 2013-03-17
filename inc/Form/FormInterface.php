@@ -12,8 +12,6 @@
 
 namespace Chrisguitarguy\FrontEndAccounts\Form;
 
-!defined('ABSPATH') && exit;
-
 /**
  * Form are a collection of fields and their associated validations hidden
  * behind an interface.

@@ -12,8 +12,6 @@
 
 namespace Chrisguitarguy\FrontEndAccounts\Form\Field;
 
-!defined('ABSPATH') && exit;
-
 class Checkbox extends FieldBase implements FieldInterface
 {
     const CHECK_ON  = 'on';

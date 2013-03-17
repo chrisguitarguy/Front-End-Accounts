@@ -12,8 +12,6 @@
 
 namespace Chrisguitarguy\FrontEndAccounts\Form;
 
-!defined('ABSPATH') && exit;
-
 class Form implements FormInterface
 {
     private $fields = array();
