@@ -108,8 +108,9 @@ abstract class FieldBase
     public function label()
     {
         printf(
-            '<label for="%1$s">%2$s</label>',
+            '<label for="%1$s" class="field-type-%2$s">%3$s</label>',
             $this->escAttr($this->getName()),
+            $this->escAttr($this->getArg('type', 'unknown')),
             $this->escHtml($this->getArg('label', ''))
         );
     }
