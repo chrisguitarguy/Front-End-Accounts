@@ -14,6 +14,8 @@ namespace Chrisguitarguy\FrontEndAccounts;
 
 !defined('ABSPATH') && exit;
 
+use Chrisguitarguy\FrontEndAccounts\Form\Validator;
+
 class Login extends SectionBase
 {
     private $form = null;
@@ -22,6 +24,64 @@ class Login extends SectionBase
     {
         $this->getForm()->render();
         echo '<p>', $this->submit(__('Login', FE_ACCOUNTS_TD)), '</p>';
+    }
+
+    public function initSection($additional)
+    {
+        if ('password_reset' === $additional) {
+            $this->addError('password_reset', apply_filters(
+                'frontend_accounts_password_reset_message',
+                __('Your password has been reset. Please Log in.', FE_ACCOUNTS_TD)
+            ));
+        }
+    }
+
+    public function save($data, $additional)
+    {
+        $form = $this->getForm();
+
+        $form->bind($data);
+
+        list($data, $errors) = $form->validate();
+
+        if (!empty($errors)) {
+            foreach ($errors as $k => $err) {
+                $this->addError("validation_{$k}", apply_filters(
+                    'frontend_accounts_login_failed_message',
+                    $err,
+                    $k
+                ));
+            }
+
+            $this->dispatchFailed($data, $additional);
+            return;
+        }
+
+        $user = wp_signon();
+
+        if (!$user || is_wp_error($user)) {
+            foreach ($user->get_error_codes() as $code) {
+                $this->addError("validation_{$code}", apply_filters(
+                    'frontend_accounts_login_failed_message',
+                    $this->getWpErrorMessage($code),
+                    $code
+                ));
+            }
+
+            $this->dispatchFailed($data, $additional);
+            return;
+        }
+
+        do_action('wp_login', $user->user_login, $user); // XXX wp-login.php compat
+        do_action('frontend_accounts_login_success', $user, $data, $additional, $this);
+
+        $redirect_to = !empty($data['redirect_to']) ? $data['redirect_to'] : static::url('edit');
+
+        wp_safe_redirect(
+            apply_filters('frontend_accounts_login_redirect_to', $redirect_to, $user, $data, $additional, $this),
+            303
+        );
+        exit;
     }
 
     protected function getTitle()
@@ -34,6 +94,15 @@ class Login extends SectionBase
         return 'login';
     }
 
+    private function dispatchFailed($data, $additional)
+    {
+        if (!empty($data['log'])) {
+            do_action('wp_login_failed', $data['log']); // XXX compat for wp-login.php
+        }
+
+        do_action('frontend_accounts_login_failed', $data, $additional, $this);
+    }
+
     private function getForm()
     {
         if ($this->form) {
@@ -44,18 +113,22 @@ class Login extends SectionBase
             'redirect_to' => isset($_GET['redirect_to']) ? $_GET['redirect_to'] : static::url('edit'),
         ));
 
-        $this->form->addField('username', array(
+        $this->form->addField('log', array(
             'label'         => __('Username', FE_ACCOUNTS_TD),
             'validators'    => array(
-
+                new Validator\NotEmpty(__('Please enter a username', FE_ACCOUNTS_TD)),
             ),
         ))
-        ->addField('password', array(
+        ->addField('pwd', array(
             'type'          => 'password',
             'label'         => __('Password', FE_ACCOUNTS_TD),
             'validators'    => array(
-
+                new Validator\NotEmpty(__('Please enter a password', FE_ACCOUNTS_TD)),
             ),
+        ))
+        ->addField('rememberme', array(
+            'type'          => 'checkbox',
+            'label'         => __('Remember Me', FE_ACCOUNTS_TD),
         ))
         ->addField('redirect_to', array(
             'type'          => 'hidden',
@@ -64,5 +137,20 @@ class Login extends SectionBase
         do_action('frontend_accounts_alter_login_form', $this->form);
 
         return $this->form;
+    }
+
+    private function getWpErrorMessage($code)
+    {
+        switch ($code) {
+        case 'invalid_username':
+        case 'incorrect_password':
+            $msg = __('Invalid username and/or password', FE_ACCOUNTS_TD);
+            break;
+        default:
+            $msg = __('Error logging in', FE_ACCOUNTS_TD);
+            break;
+        }
+
+        return $msg;
     }
 }
