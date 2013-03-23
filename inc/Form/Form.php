@@ -49,7 +49,7 @@ class Form implements FormInterface
 
         foreach ($this->getFields() as $id => $field) {
             // replace value with bound data if we have it.
-            if (!empty($this->bound[$id])) {
+            if (isset($this->bound[$id])) {
                 $field->setValue($this->bound[$id]);
             }
 
