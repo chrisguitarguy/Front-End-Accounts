@@ -30,7 +30,7 @@
  * DEALINGS IN THE SOFTWARE.
  *
  * @category    WordPress
- * @package     FrontEndAcounts
+ * @package     FrontEndAccounts
  * @since       0.1
  * @author      Christopher Davis <http://christopherdavis.me>
  * @copyright   2013 Christopher Davis
