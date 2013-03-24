@@ -16,6 +16,13 @@ namespace Chrisguitarguy\FrontEndAccounts;
 
 use Chrisguitarguy\FrontEndAccounts\Form\Validator;
 
+/**
+ * Handler for the actual account page. Please note that while other areas of
+ * front end accounts strive to remain compatible with other areas (eg.
+ * wp-login.php), this does not.
+ *
+ * @since   0.1
+ */
 class Account extends SectionBase
 {
     private $form = null;
