@@ -117,7 +117,7 @@ class ForgotPassword extends SectionBase
 
     private function dispatchFailed($postdata, $additional)
     {
-        do_action('frontend_accounts_forgot_password_failed', $postdata, $additional);
+        do_action('frontend_accounts_forgot_password_failed', $postdata, $additional, $this);
     }
 
     private function getUser($login_or_email)
