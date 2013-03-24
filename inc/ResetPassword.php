@@ -131,14 +131,18 @@ class ResetPassword extends SectionBase
     {
         global $wpdb;
 
-        if ($this->user) {
+        if (!is_null($this->user)) {
             return $this->user;
         }
 
-        $this->user = $wpdb->get_row($wpdb->prepare(
-            "SELECT * from {$wpdb->users} WHERE user_activation_key = %s LIMIT 1", // XXX select * is probably terrible...
-            $reset_key
-        ));
+        if ($reset_key) {
+            $this->user = $wpdb->get_row($wpdb->prepare(
+                "SELECT * from {$wpdb->users} WHERE user_activation_key = %s LIMIT 1", // XXX select * is probably terrible...
+                $reset_key
+            ));
+        } else {
+            $this->user = false;
+        }
 
         return $this->user;
     }
