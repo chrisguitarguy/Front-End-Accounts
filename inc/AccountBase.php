@@ -55,12 +55,16 @@ abstract class AccountBase
             if ($additional) {
                 $path .= '/' . $additional;
             }
+
+            if ('/' === $wp_rewrite->permalink_structure[count($wp_rewrite->permalink_structure) - 1]) {
+                $path = trailingslashit($path);
+            }
         } else {
             $q = array(
                 static::ACCOUNT_VAR => $area,
             );
 
-            if ($additiona) {
+            if ($additional) {
                 $q[static::ADDITIONAL_VAR] = $additional;
             }
 
