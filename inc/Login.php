@@ -86,6 +86,15 @@ class Login extends SectionBase
     protected function showContent()
     {
         $this->getForm()->render();
+
+        echo '<p>';
+        printf(
+            '<a href="%s">%s</a>',
+            static::url('forgot_password'),
+            __('Forgot password?', FE_ACCOUNTS_TD)
+        );
+        echo '</p>';
+
         echo '<p>', $this->submit(__('Login', FE_ACCOUNTS_TD)), '</p>';
     }
 
