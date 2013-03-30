@@ -24,6 +24,8 @@ class Email extends ValidatorBase
 
     public function isValid($val)
     {
-        return filter_var($this->regex, FILTER_VALIDATE_REGEXP) && preg_match($this->regex, $val);
+        return filter_var($this->regex, FILTER_VALIDATE_REGEXP, array('options' => array(
+            'regexp'    => $this->pattern,
+        )));
     }
 }
