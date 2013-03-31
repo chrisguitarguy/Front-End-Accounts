@@ -30,6 +30,13 @@ class Account extends SectionBase
     public function initSection($additional)
     {
         $this->maybeRedirect();
+
+        if ($this->hasNag()) {
+            $this->addError(
+                'default_password_nag',
+                __("Looks like you're using a default password. Please change it.", FE_ACCOUNTS_TD)
+            );
+        }
     }
 
     public function save($data, $additional)
@@ -172,6 +179,7 @@ class Account extends SectionBase
         $user->nickname = isset($save['nickname']) ? sanitize_text_field($save['nickname']) : '';
         $user->display_name = isset($save['display_name']) ? sanitize_text_field($save['display_name']) : '';
 
+        $password_changed = false;
         if (!empty($save['new_password'])) {
             $pass = $save['new_password'];
             $pass_a = $save['new_password_again'];
@@ -179,6 +187,7 @@ class Account extends SectionBase
 
             if ($allow && $pass == $pass_a) {
                 $user->user_pass = $pass;
+                $password_changed = true;
             } else {
                 $this->addError('pass_error', __('Could not update password.', FE_ACCOUNTS_TD));
             }
@@ -189,8 +198,20 @@ class Account extends SectionBase
 
         $user_id = wp_update_user($user);
 
+        if ($user_id && $password_changed && $this->hasNag()) {
+            delete_user_option($user_id, 'default_password_nag', true);
+        }
+
         do_action('frontend_accounts_account_post_save_user', $user_id, $user, $save, $this);
 
         return $user_id;
+    }
+
+    private function hasNag()
+    {
+        return apply_filters(
+            'frontend_accounts_show_default_password_nag',
+            get_user_option('default_password_nag', get_current_user_id())
+        );
     }
 }
