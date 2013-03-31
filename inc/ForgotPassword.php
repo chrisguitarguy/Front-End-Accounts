@@ -32,27 +32,18 @@ class ForgotPassword extends SectionBase
 
         if (!empty($errors)) {
             foreach ($errors as $k => $err) {
-                $this->addError("vaidation_{$k}", apply_filters(
-                    'frontend_accounts_forgot_password_error_message',
-                    $err,
-                    $k
-                ));
+                $this->addError("vaidation_{$k}", $err);
             }
 
-            $this->dispatchFailed($postdata, $additional);
-
-            return;
+            return $this->dispatchFailed($postdata, $additional);
         }
 
         $user = $this->getUser($valid['username']);
 
         if (!$user) {
-            $this->addError('bad_combo', apply_filters(
-                'frontend_accounts_forgot_password_bad_username_error_message',
-                __('Invalid username or email.', FE_ACCOUNTS_TD)
-            ));
+            $this->addError('bad_combo', __('Invalid username or email.', FE_ACCOUNTS_TD));
 
-            return;
+            return $this->dispatchFailed($postdata, $additional);
         }
 
         do_action('retreive_password', $user->user_login); // XXX wp-login.php compat
@@ -61,14 +52,9 @@ class ForgotPassword extends SectionBase
         $allow = apply_filters('allow_password_reset', true, $user->ID); // XXX wp-login.php compat
 
         if (!$allow) {
-            $this->addError('no_password_reset', apply_filters(
-                'frontend_accounts_forgot_passowrd_disallowed_error_message',
-                __('Password reset is not allowed for this user.', FE_ACCOUNTS_TD)
-            ));
+            $this->addError('no_password_reset', __('Password reset is not allowed for this user.', FE_ACCOUNTS_TD));
 
-            $this->dispatchFailed($postdata, $additional);
-
-            return;
+            return $this->dispatchFailed($postdata, $additional);
         }
 
         if ($this->doForgotPassword($user)) {
@@ -140,18 +126,12 @@ class ForgotPassword extends SectionBase
         $this->saveKey($rk, $user);
 
         if ($this->sendResetEmail($user, $rk)) {
-            $this->addError('error_sending_email', apply_filters(
-                'frontend_accounts_forgot_password_email_error_message',
-                __('Error sending email. Please contact the site administrator.', FE_ACCOUNTS_TD)
-            ));
+            $this->addError('error_sending_email', __('Error sending email. Please contact the site administrator.', FE_ACCOUNTS_TD));
 
             return false;
         }
 
-        $this->addError('success', apply_filters(
-            'frontend_accounts_forgot_passowrd_success_message',
-            __('Password reset sent', FE_ACCOUNTS_TD)
-        ));
+        $this->addError('success', __('Password reset sent.', FE_ACCOUNTS_TD));
 
         return true;
     }

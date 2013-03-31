@@ -44,35 +44,21 @@ class Account extends SectionBase
 
         if (!empty($errors)) {
             foreach ($errors as $k => $err) {
-                $this->addError("validation_{$k}", apply_filters(
-                    'frontend_accounts_account_error_message',
-                    $err,
-                    $k
-                ));
+                $this->addError("validation_{$k}", $err);
             }
 
-            $this->dispatchFailed($data, $additional);
-
-            return;
+            return $this->dispatchFailed($data, $additional);
         }
 
         $user_id = $this->saveUser($to_save);
 
         if (!$user_id) {
-            $this->addError('save_error', apply_filters(
-                'frontend_accounts_account_save_error_message',
-                __('Error saving! Try again.', FE_ACCOUNTS_TD)
-            ));
+            $this->addError('save_error', __('Error saving! Try again.', FE_ACCOUNTS_TD));
 
-            $this->distpatchFailed($data, $additional);
-
-            return;
+            return $this->distpatchFailed($data, $additional);
         }
 
-        $this->addError('success', apply_filters(
-            'frontend_accounts_account_save_success_message',
-            __('Account updated.', FE_ACCOUNTS_TD)
-        ));
+        $this->addError('success', __('Account updated.', FE_ACCOUNTS_TD));
 
         do_action('frontend_accounts_account_save_success', $user_id, $this);
     }
@@ -199,10 +185,7 @@ class Account extends SectionBase
             if ($allow && $pass == $pass_a) {
                 $user->user_pass = $pass;
             } else {
-                $this->addError('pass_error', apply_filters(
-                    'frontend_accounts_account_password_error_message',
-                    __('Could not update password.', FE_ACCOUNTS_TD)
-                ));
+                $this->addError('pass_error', __('Could not update password.', FE_ACCOUNTS_TD));
             }
         }
 

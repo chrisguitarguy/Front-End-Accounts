@@ -24,17 +24,10 @@ class Login extends SectionBase
     {
         switch ($additional) {
         case 'password_reset':
-            $this->addError('password_reset', apply_filters(
-                'frontend_accounts_password_reset_message',
-                __('Your password has been reset. Please Log in.', FE_ACCOUNTS_TD)
-            ));
+            $this->addError('password_reset', __('Your password has been reset. Please Log in.', FE_ACCOUNTS_TD));
             break;
         case 'registration_complete':
-            $this->addError('registration_complete', apply_filters(
-                'frontend_accounts_registration_complete_message',
-                __('Registration complete. Check your email for a password.', FE_ACCOUNTS_TD)
-            ));
-            break;
+            $this->addError('registration_complete', __('Registration complete. Check your email for a password.', FE_ACCOUNTS_TD));
         }
     }
 
@@ -48,30 +41,20 @@ class Login extends SectionBase
 
         if (!empty($errors)) {
             foreach ($errors as $k => $err) {
-                $this->addError("validation_{$k}", apply_filters(
-                    'frontend_accounts_login_failed_message',
-                    $err,
-                    $k
-                ));
+                $this->addError("validation_{$k}", $err);
             }
 
-            $this->dispatchFailed($data, $additional);
-            return;
+            return $this->dispatchFailed($data, $additional);
         }
 
         $user = wp_signon();
 
         if (!$user || is_wp_error($user)) {
             foreach ($user->get_error_codes() as $code) {
-                $this->addError("validation_{$code}", apply_filters(
-                    'frontend_accounts_login_failed_message',
-                    $this->getWpErrorMessage($code),
-                    $code
-                ));
+                $this->addError("validation_{$code}", $this->getWpErrorMessage($code));
             }
 
-            $this->dispatchFailed($data, $additional);
-            return;
+            return $this->dispatchFailed($data, $additional);
         }
 
         do_action('wp_login', $user->user_login, $user); // XXX wp-login.php compat

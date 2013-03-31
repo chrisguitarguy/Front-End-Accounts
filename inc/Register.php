@@ -42,11 +42,7 @@ class Register extends SectionBase
 
         if (!empty($errors)) {
             foreach ($errors as $k => $err) {
-                $this->addError("validation_{$k}", apply_filters(
-                    'frontend_accounts_register_failed_message',
-                    $err,
-                    $k
-                ));
+                $this->addError("validation_{$k}", $err);
             }
 
             return $this->dispatchFailed($postdata, $additional);
@@ -56,14 +52,10 @@ class Register extends SectionBase
 
         if (is_wp_error($result)) {
             foreach ($result->get_error_codes() as $code) {
-                $this->addError("validation_{$code}", apply_filters(
-                    'frontend_accounts_register_failed_message',
-                    $result->get_error_message($code),
-                    $code
-                ));
-
-                return $this->dispatchFailed($postdata, $additional);
+                $this->addError("validation_{$code}", $result->get_error_message($code));
             }
+
+            return $this->dispatchFailed($postdata, $additional);
         }
 
         wp_safe_redirect(

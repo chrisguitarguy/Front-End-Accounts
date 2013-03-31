@@ -96,7 +96,12 @@ abstract class SectionBase extends AccountBase
 
     public function addError($key, $err)
     {
-        $this->errors[$key] = $err;
+        $this->errors[$key] = apply_filters(
+            'frontend_accounts_' . $this->getName() . '_error_message',
+            $err,
+            $key,
+            $this
+        );
     }
 
     public function removeError($key)
