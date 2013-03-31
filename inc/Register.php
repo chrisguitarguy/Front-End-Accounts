@@ -67,7 +67,7 @@ class Register extends SectionBase
         }
 
         wp_safe_redirect(
-            apply_filters('frontend_accounts_register_successful_redirect', static::url('login', 'registration_completed')),
+            apply_filters('frontend_accounts_register_successful_redirect', static::url('login', 'registration_complete')),
             303
         );
 

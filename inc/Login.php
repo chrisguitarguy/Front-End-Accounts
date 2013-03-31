@@ -22,11 +22,19 @@ class Login extends SectionBase
 
     public function initSection($additional)
     {
-        if ('password_reset' === $additional) {
+        switch ($additional) {
+        case 'password_reset':
             $this->addError('password_reset', apply_filters(
                 'frontend_accounts_password_reset_message',
                 __('Your password has been reset. Please Log in.', FE_ACCOUNTS_TD)
             ));
+            break;
+        case 'registration_complete':
+            $this->addError('registration_complete', apply_filters(
+                'frontend_accounts_registration_complete_message',
+                __('Registration complete. Check your email for a password.', FE_ACCOUNTS_TD)
+            ));
+            break;
         }
     }
 
