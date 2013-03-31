@@ -126,6 +126,11 @@ abstract class SectionBase extends AccountBase
         return sprintf('<button type="submit" class="frontend-accounts-submit">%1$s</button>', esc_html($msg));
     }
 
+    protected function dispatchFailed($postdata, $additional)
+    {
+        do_action('frontend_accounts_' . $this->getName() . '_failed', $postdata, $additional, $this);
+    }
+
     abstract protected function getName();
 
     abstract protected function showContent();

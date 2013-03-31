@@ -95,13 +95,13 @@ class Login extends SectionBase
         return 'login';
     }
 
-    private function dispatchFailed($data, $additional)
+    protected  function dispatchFailed($data, $additional)
     {
         if (!empty($data['log'])) {
             do_action('wp_login_failed', $data['log']); // XXX compat for wp-login.php
         }
 
-        do_action('frontend_accounts_login_failed', $data, $additional, $this);
+        parent::dispatchFailed($data, $additional);
     }
 
     private function getForm()

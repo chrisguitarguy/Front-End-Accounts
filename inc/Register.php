@@ -209,9 +209,4 @@ class Register extends SectionBase
 
         return $user_id;
     }
-
-    private function dispatchFailed($data, $additional)
-    {
-        do_action('frontend_accounts_register_failed', $data, $additional, $this);
-    }
 }

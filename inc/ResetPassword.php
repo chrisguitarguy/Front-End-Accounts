@@ -144,11 +144,6 @@ class ResetPassword extends SectionBase
         return $wp_query->set_404();
     }
 
-    private function dispatchFailed($postdata, $reset_key)
-    {
-        do_action('frontend_accounts_reset_password_failed', $postdata, $reset_key, $this);
-    }
-
     private function setPassword($user, $new_pass)
     {
         do_action('password_reset', $user, $new_pass); // XXX wp-login.php compat

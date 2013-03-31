@@ -159,11 +159,6 @@ class Account extends SectionBase
         }
     }
 
-    private function dispatchFailed($data, $additional)
-    {
-        do_action('frontend_accounts_account_failed', $data, $additional, $this);
-    }
-
     private function saveUser(array $save)
     {
         $user = wp_get_current_user();
