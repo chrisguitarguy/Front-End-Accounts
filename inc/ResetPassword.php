@@ -55,7 +55,7 @@ class ResetPassword extends SectionBase
             return $this->dispatchFailed($postdata, $reset_key);
         }
 
-        do_action( 'validate_password_reset', new \WP_Error(), $user); // XXX wp-login.php compat, not 100% compat??
+        do_action('validate_password_reset', new \WP_Error(), $user); // XXX wp-login.php compat, not 100% compat??
 
         if ($valid['password'] != $valid['password_again']) {
             $this->addError('password_match', apply_filters(
