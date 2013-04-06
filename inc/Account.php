@@ -25,6 +25,8 @@ use Chrisguitarguy\FrontEndAccounts\Form\Validator;
  */
 class Account extends SectionBase
 {
+    const NONCE = 'fe_accounts_edit';
+
     private $form = null;
 
     public function initSection($additional)
@@ -37,11 +39,21 @@ class Account extends SectionBase
                 __("Looks like you're using a default password. Please change it.", FE_ACCOUNTS_TD)
             );
         }
+
+        add_action('frontend_accounts_after_fields_' . $this->getName(), array($this, 'addNonce'));
     }
 
     public function save($data, $additional)
     {
         $this->maybeRedirect();
+
+        if (
+            empty($data[static::NONCE]) ||
+            !wp_verify_nonce($_POST[static::NONCE], static::NONCE . get_current_user_id())
+        ) {
+            $this->addError('bad_request', __('Bad Request. Try again?', FE_ACCOUNTS_TD));
+            return;
+        }
 
         $form = $this->getForm();
 
@@ -73,6 +85,11 @@ class Account extends SectionBase
     public function getTitle()
     {
         return esc_html__('Account', FE_ACCOUNTS_TD);
+    }
+
+    public function addNonce()
+    {
+        wp_nonce_field(static::NONCE . get_current_user_id(), static::NONCE, false);
     }
 
     protected function showContent()
