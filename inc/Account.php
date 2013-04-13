@@ -219,7 +219,7 @@ class Account extends SectionBase
             delete_user_option($user_id, 'default_password_nag', true);
         }
 
-        do_action('frontend_accounts_account_post_save_user', $user_id, $user, $save, $this);
+        do_action('frontend_accounts_account_post_save_user', $user, $save, $this);
 
         return $user_id;
     }
