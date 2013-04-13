@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name: Front End Accounts
+ * Plugin Name: Frontend Accounts
  * Plugin URI: https://github.com/chrisguitarguy/Front-End-Accounts
  * Description: Create account pages on the frontend of your website.
  * Version: 0.1
