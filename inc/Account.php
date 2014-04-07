@@ -95,7 +95,7 @@ class Account extends SectionBase
     protected function showContent()
     {
         $this->getForm()->render();
-        echo '<p>', $this->submit(__('Save', FE_ACCOUNTS_TD)), '</p>';
+        echo '<p class="fe-accounts-submit">', $this->submit(__('Save', FE_ACCOUNTS_TD)), '</p>';
     }
 
     protected function getName()

@@ -78,15 +78,15 @@ class Login extends SectionBase
     {
         $this->getForm()->render();
 
-        echo '<p>';
+        echo '<p class="fe-accounts-submit">', $this->submit(__('Login', FE_ACCOUNTS_TD)), '</p>';
+
+        echo '<p class="fe-accounts-forgot-password">';
         printf(
             '<a href="%s">%s</a>',
             static::url('forgot_password'),
             __('Forgot password?', FE_ACCOUNTS_TD)
         );
         echo '</p>';
-
-        echo '<p>', $this->submit(__('Login', FE_ACCOUNTS_TD)), '</p>';
     }
 
 
