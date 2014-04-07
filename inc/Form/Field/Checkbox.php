@@ -17,6 +17,14 @@ class Checkbox extends FieldBase implements FieldInterface
     const CHECK_ON  = 'on';
 
     /**
+     * @see     Chrisguitarguy\FrontEndAccounts\Form\Field\FieldInterface::validate()
+     */
+    public function label()
+    {
+        // noop
+    }
+
+    /**
      * {@inheritdoc}
      * @see     Chrisguitarguy\FrontEndAccounts\Form\Field\FieldInterface::render();
      */
@@ -25,9 +33,10 @@ class Checkbox extends FieldBase implements FieldInterface
         $attr = $this->getAdditionalAttributes();
 
         printf(
-            '<input type="checkbox" id="%1$s" name="%1$s" value="1" %2$s />',
+            '<label for="%1$s"><input type="checkbox" id="%1$s" name="%1$s" value="1" %2$s /> %3$s</label>',
             $this->escAttr($this->getName()),
-            $this->arrayToAttr($attr)
+            $this->arrayToAttr($attr),
+            $this->escAttr($this->getArg('label', ''))
         );
     }
 
