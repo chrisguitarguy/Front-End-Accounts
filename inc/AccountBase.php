@@ -68,7 +68,7 @@ abstract class AccountBase
                 $q[static::ADDITIONAL_VAR] = $additional;
             }
 
-            $path = http_build_query($q);
+            $path = '?'.http_build_query($q);
         }
 
         return apply_filters('frontend_accounts_url', home_url($path), $area, $additional);
