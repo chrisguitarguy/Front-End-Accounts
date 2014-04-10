@@ -83,7 +83,7 @@ class Register extends SectionBase
 
         $this->getForm()->render();
 
-        echo '<p class="fe-accounts-submit">', $this->submit(__('Register', FE_ACCOUNTS_TD)), '</p>';
+        echo $this->submit(__('Register', FE_ACCOUNTS_TD));
     }
 
     protected function getName()

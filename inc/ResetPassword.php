@@ -80,7 +80,7 @@ class ResetPassword extends SectionBase
     protected function showContent()
     {
         $this->getForm()->render();
-        echo '<p class="fe-accounts-submit">', $this->submit(__('Reset Password', FE_ACCOUNTS_TD)), '</p>';
+        echo $this->submit(__('Reset Password', FE_ACCOUNTS_TD));
     }
 
     protected function getName()

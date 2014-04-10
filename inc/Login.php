@@ -78,7 +78,7 @@ class Login extends SectionBase
     {
         $this->getForm()->render();
 
-        echo '<p class="fe-accounts-submit">', $this->submit(__('Login', FE_ACCOUNTS_TD)), '</p>';
+        echo $this->submit(__('Login', FE_ACCOUNTS_TD));
 
         echo '<p class="fe-accounts-forgot-password">';
         printf(

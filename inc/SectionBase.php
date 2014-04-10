@@ -123,7 +123,14 @@ abstract class SectionBase extends AccountBase
 
     protected function submit($msg)
     {
-        return sprintf('<button type="submit" class="frontend-accounts-submit">%1$s</button>', esc_html($msg));
+        $section = $this->getName();
+        return sprintf(
+            '<%1$s class="%2$s"><button type="submit" class="frontend-accounts-submit %3$s">%4$s</button></%1$s>',
+            tag_escape(apply_filters('frontend_accounts_submit_wraptag', 'p', $section) ?: 'p'),
+            esc_attr(apply_filters('frontend_accounts_submit_wrapclass', 'frontend-accounts-submit-wrap', $section)),
+            esc_attr(apply_filters('frontend_accounts_submit_buttonclass', '', $section)),
+            esc_html($msg)
+        );
     }
 
     protected function dispatchFailed($postdata, $additional)
