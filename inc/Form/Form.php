@@ -111,10 +111,17 @@ class Form implements FormInterface
 
     protected function renderRow(Field\FieldInterface $f)
     {
-        echo '<p>';
+        if ($f instanceof Field\HiddenInput) {
+            return $f->render();
+        }
+
+        $tag = apply_filters('frontend_accounts_field_wraptag', 'p', $f);
+        $cls = apply_filters('frontend_accounts_field_wrapclass', 'fe-accounts-field-wrap', $f);
+
+        printf('<%s class="%s">', tag_escape($tag), esc_attr($cls));
         $f->label();
         $f->render();
-        echo '</p>';
+        echo "</{$tag}>";
     }
 
     protected function getFieldObject($name, array $args)

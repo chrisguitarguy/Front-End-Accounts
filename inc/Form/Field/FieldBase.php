@@ -206,6 +206,7 @@ abstract class FieldBase
     {
         $out = '';
 
+        $attr = apply_filters('frontend_accounts_field_attr', $attr, $this);
         foreach ($attr as $key => $val) {
             $out .= sprintf(' %1$s="%2$s"', $key, $this->escAttr($val));
         }
