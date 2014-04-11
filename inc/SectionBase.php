@@ -138,6 +138,17 @@ abstract class SectionBase extends AccountBase
         do_action('frontend_accounts_' . $this->getName() . '_failed', $postdata, $additional, $this);
     }
 
+    /**
+     * Check whether or not users can set their own passwords on registration.
+     *
+     * @since   0.2
+     * @return  boolean
+     */
+    protected function allowUserPasswords()
+    {
+        return apply_filters('frontend_accounts_allow_user_password', false);
+    }
+
     abstract protected function getName();
 
     abstract protected function showContent();

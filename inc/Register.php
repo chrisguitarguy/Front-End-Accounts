@@ -48,7 +48,18 @@ class Register extends SectionBase
             return $this->dispatchFailed($postdata, $additional);
         }
 
-        $result = $this->registerUser($valid['username'], $valid['email']);
+        // validation above should take care of making sure that the password
+        // fields are filled out, so we just need to make sure they match here
+        $password = null;
+        if ($this->allowUserPasswords()) {
+            if ($valid['password'] !== $valid['password_again']) {
+                $this->addError('validation_passwordnomatch', __('Passwords must match.', FE_ACCOUNTS_TD));
+                return $this->dispatchFailed($postdata, $additional);
+            }
+            $password = $valid['password'];
+        }
+
+        $result = $this->registerUser($valid['username'], $valid['email'], $password);
 
         if (is_wp_error($result)) {
             foreach ($result->get_error_codes() as $code) {
@@ -79,7 +90,9 @@ class Register extends SectionBase
 
     protected function showContent()
     {
-        echo '<p>', esc_html__('A password will be sent to you via email.', FE_ACCOUNTS_TD), '</p>';
+        if (!$this->allowUserPasswords()) {
+            echo '<p>', esc_html__('A password will be sent to you via email.', FE_ACCOUNTS_TD), '</p>';
+        }
 
         $this->getForm()->render();
 
@@ -119,6 +132,24 @@ class Register extends SectionBase
             ),
         ));
 
+        if ($this->allowUserPasswords()) {
+            $this->form->addField('password', array(
+                'type'          => 'password',
+                'label'         => __('Password', FE_ACCOUNTS_TD),
+                'validators'    => array(
+                    new Validator\NotEmpty(__('Please enter a password', FE_ACCOUNTS_TD)),
+                ),
+            ));
+
+            $this->form->addField('password_again', array(
+                'type'          => 'password',
+                'label'         => __('Password (Again)', FE_ACCOUNTS_TD),
+                'validators'    => array(
+                    new Validator\NotEmpty(__('Please enter a password', FE_ACCOUNTS_TD)),
+                ),
+            ));
+        }
+
         $this->form->addField('redirect_to', array(
             'type'          => 'hidden',
         ));
@@ -147,12 +178,12 @@ class Register extends SectionBase
      *
      * @see wp-login.php - `register_new_user`
      */
-    function registerUser($user_login, $user_email)
+    function registerUser($user_login, $user_email, $password=null)
     {
         $errors = new \WP_Error();
 
         $sanitized_user_login = sanitize_user($user_login);
-        $user_email = apply_filters('user_registration_email', $user_email );
+        $user_email = apply_filters('user_registration_email', $user_email);
 
         // Check the username
         if (!$sanitized_user_login) {
@@ -184,7 +215,11 @@ class Register extends SectionBase
             return $errors;
         }
 
-        $user_pass = wp_generate_password(20, false);
+        if ($this->allowUserPasswords() && $password) {
+            $user_pass = $password;
+        } else {
+            $user_pass = wp_generate_password(20, false);
+        }
 
         $user_id = wp_create_user($sanitized_user_login, $user_pass, $user_email);
 
@@ -197,12 +232,14 @@ class Register extends SectionBase
             return $errors;
         }
 
-        update_user_option($user_id, 'default_password_nag', true, true);
+        if (!$this->allowUserPasswords() || !$password) {
+            update_user_option($user_id, 'default_password_nag', true, true);
+        }
 
         // switch the login url for the new user notification
         add_filter('login_url', array($this, 'switchLoginUrl'), 10, 2);
 
-        wp_new_user_notification($user_id, $user_pass);
+        wp_new_user_notification($user_id, $this->allowUserPasswords() && $password ? '' : $user_pass);
 
         // back to normal on the login url
         remove_filter('login_url', array($this, 'switchLoginUrl'), 10, 2);

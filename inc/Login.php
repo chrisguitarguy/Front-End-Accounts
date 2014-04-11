@@ -27,7 +27,11 @@ class Login extends SectionBase
             $this->addError('password_reset', __('Your password has been reset. Please Log in.', FE_ACCOUNTS_TD));
             break;
         case 'registration_complete':
-            $this->addError('registration_complete', __('Registration complete. Check your email for a password.', FE_ACCOUNTS_TD));
+            $this->addError(
+                'registration_complete',
+                $this->allowUserPasswords() ? __('Registration complete, please log in.', FE_ACCOUNTS_TD) : __('Registration complete. Check your email for a password.', FE_ACCOUNTS_TD)
+            );
+            break;
         }
     }
 

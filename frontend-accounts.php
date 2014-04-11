@@ -3,7 +3,7 @@
  * Plugin Name: Frontend Accounts
  * Plugin URI: https://github.com/chrisguitarguy/Front-End-Accounts
  * Description: Create account pages on the frontend of your website.
- * Version: 0.1
+ * Version: 0.2
  * Text Domain: front-end-accounts
  * Author: Christopher Davis
  * Author URI: http://christopherdavis.me
