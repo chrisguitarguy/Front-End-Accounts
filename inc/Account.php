@@ -119,7 +119,7 @@ class Account extends SectionBase
             'nickname'          => $user->nickname,
             'display_name'      => $user->display_name,
             'description'       => $user->description,
-        )));
+        ), $user));
 
         $this->form->addField('email', array(
             'label'         => __('Email', FE_ACCOUNTS_TD),
