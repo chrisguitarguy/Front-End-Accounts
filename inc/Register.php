@@ -69,12 +69,16 @@ class Register extends SectionBase
             return $this->dispatchFailed($postdata, $additional);
         }
 
-        wp_safe_redirect(
-            apply_filters('frontend_accounts_register_successful_redirect', static::url('login', 'registration_complete')),
-            303
-        );
+        do_action('frontend_accounts_register_success', $user_id, $valid, $additional);
 
-        exit;
+        // let users choose to avoid the redirect if something goes wrong in on the action above
+        if (apply_filters('frontend_accounts_register_redirect', true, $user_id, $valid, $additional)) {
+            wp_safe_redirect(
+                apply_filters('frontend_accounts_register_successful_redirect', static::url('login', 'registration_complete')),
+                303
+            );
+            exit;
+        }
     }
 
     public function switchLoginUrl($url, $redirect)
