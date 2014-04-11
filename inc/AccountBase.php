@@ -39,12 +39,7 @@ abstract class AccountBase
 
     abstract public function _setup();
 
-    protected function getRole()
-    {
-        return apply_filters('frontend_accounts_role', FE_ACCOUNTS_ROLE);
-    }
-
-    protected static function url($area, $additional=null)
+    public static function url($area, $additional=null)
     {
         global $wp_rewrite;
 
@@ -72,5 +67,10 @@ abstract class AccountBase
         }
 
         return apply_filters('frontend_accounts_url', home_url($path), $area, $additional);
+    }
+
+    protected function getRole()
+    {
+        return apply_filters('frontend_accounts_role', FE_ACCOUNTS_ROLE);
     }
 }
