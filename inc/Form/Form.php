@@ -129,7 +129,7 @@ class Form implements FormInterface
         }
 
         $tag = apply_filters('frontend_accounts_field_wraptag', 'p', $f);
-        $cls = apply_filters('frontend_accounts_field_wrapclass', 'fe-accounts-field-wrap', $f);
+        $cls = apply_filters('frontend_accounts_field_wrapclass', sprintf('fe-accounts-field-wrap %s', $f->getName()), $f);
 
         printf('<%s class="%s">', tag_escape($tag), esc_attr($cls));
         $f->label();
