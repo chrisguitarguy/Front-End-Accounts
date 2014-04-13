@@ -30,6 +30,15 @@ interface FormInterface
     public function render();
 
     /**
+     * Render a single field (spit out HTML)
+     *
+     * @since   0.2
+     * @param   string $field
+     * @return  void
+     */
+    public function renderField($field);
+
+    /**
      * Validate the field and return the validated data and and array of errors
      *
      * @since   0.1

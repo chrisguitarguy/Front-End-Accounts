@@ -80,7 +80,7 @@ class ForgotPassword extends SectionBase
         return 'forgot_password';
     }
 
-    private function getForm()
+    protected function getForm()
     {
         if ($this->form) {
             return $this->form;

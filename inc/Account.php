@@ -103,7 +103,7 @@ class Account extends SectionBase
         return 'edit';
     }
 
-    private function getForm()
+    protected function getForm()
     {
         if ($this->form) {
             return $this->form;

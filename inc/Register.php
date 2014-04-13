@@ -108,7 +108,7 @@ class Register extends SectionBase
         return 'register';
     }
 
-    private function getForm()
+    protected function getForm()
     {
         if ($this->form) {
             return $this->form;

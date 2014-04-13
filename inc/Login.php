@@ -108,7 +108,7 @@ class Login extends SectionBase
         parent::dispatchFailed($data, $additional);
     }
 
-    private function getForm()
+    protected function getForm()
     {
         if ($this->form) {
             return $this->form;

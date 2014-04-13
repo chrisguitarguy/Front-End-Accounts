@@ -75,7 +75,11 @@ abstract class SectionBase extends AccountBase
 
                 <?php
                 $this->act('frontend_accounts_before_fields', $s);
-                $this->showContent($additional);
+                if (has_action("frontend_account_renderform_{$s}")) {
+                    do_action("frontend_account_renderform_{$s}", $this->getForm(), $this);
+                } else {
+                    $this->showContent($additional);
+                }
                 $this->act('frontend_accounts_after_fields', $s);
                 ?>
 
@@ -152,6 +156,8 @@ abstract class SectionBase extends AccountBase
     abstract protected function getName();
 
     abstract protected function showContent();
+
+    abstract protected function getForm();
 
     private function act($act, $section)
     {

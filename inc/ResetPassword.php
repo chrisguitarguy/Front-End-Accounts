@@ -88,7 +88,7 @@ class ResetPassword extends SectionBase
         return 'reset_password';
     }
 
-    private function getForm()
+    protected function getForm()
     {
         if ($this->form) {
             return $this->form;

@@ -43,6 +43,19 @@ class Form implements FormInterface
     /**
      * {@inheritdoc}
      */
+    public function renderField($field)
+    {
+        $fields = $this->getFields();
+        if (!isset($fields[$field])) {
+            throw new \InvalidArgumentException(sprintf('Field "%s" does not exist', $field));
+        }
+
+        $this->renderRow($this->fields[$field]);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function validate()
     {
         $values = $errors = array();
