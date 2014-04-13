@@ -69,7 +69,7 @@ class Register extends SectionBase
             return $this->dispatchFailed($postdata, $additional);
         }
 
-        do_action('frontend_accounts_register_success', $user_id, $valid, $additional);
+        do_action('frontend_accounts_register_success', $result, $valid, $additional);
 
         // let users choose to avoid the redirect if something goes wrong in on the action above
         if (apply_filters('frontend_accounts_register_redirect', true, $user_id, $valid, $additional)) {
