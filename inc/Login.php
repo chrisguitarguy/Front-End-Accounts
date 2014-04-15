@@ -156,6 +156,6 @@ class Login extends SectionBase
             break;
         }
 
-        return $msg;
+        return apply_filters('frontend_accounts_login_wp_error_message', $msg, $code);
     }
 }
