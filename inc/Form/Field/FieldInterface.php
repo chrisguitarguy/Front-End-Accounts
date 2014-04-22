@@ -17,7 +17,7 @@ namespace Chrisguitarguy\FrontEndAccounts\Form\Field;
  *
  * @since   0.1
  */
-interface FieldInterface
+interface FieldInterface extends \ArrayAccess
 {
     /**
      * Set the value of the field.

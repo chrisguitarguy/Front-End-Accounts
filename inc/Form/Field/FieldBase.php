@@ -115,6 +115,26 @@ abstract class FieldBase
         );
     }
 
+    public function offsetGet($key)
+    {
+        return $this->args[$key];
+    }
+
+    public function offsetSet($key, $val)
+    {
+        $this->args[$key] = $val;
+    }
+
+    public function offsetUnset($key)
+    {
+        unset($this->args[$key]);
+    }
+
+    public function offsetExists($key)
+    {
+        return isset($this->args[$key]);
+    }
+
     /**
      * Make sure an array has required values.
      *
