@@ -192,6 +192,10 @@ abstract class FieldBase
             $attr['class'] = $cls;
         }
 
+        if ($placeholder = $this->getArg('placeholder')) {
+            $attr['placeholder'] = $placeholder;
+        }
+
         return $attr;
     }
 
