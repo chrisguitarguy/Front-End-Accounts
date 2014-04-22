@@ -108,10 +108,12 @@ abstract class FieldBase
     public function label()
     {
         printf(
-            '<label for="%1$s" class="field-type-%2$s">%3$s</label>',
+            '<label for="%1$s" class="field-type-%2$s">%3$s%4$s%5$s</label>',
             $this->escAttr($this->getName()),
             $this->escAttr($this->getArg('type', 'unknown')),
-            $this->escHtml($this->getArg('label', ''))
+            apply_filters('frontend_accounts_before_field_label', '', $this->getName()),
+            $this->escHtml($this->getArg('label', '')),
+            apply_filters('frontend_accounts_after_field_label', '', $this->getName())
         );
     }
 
