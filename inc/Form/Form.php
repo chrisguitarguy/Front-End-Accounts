@@ -117,6 +117,18 @@ class Form implements FormInterface
     /**
      * {@inheritdoc}
      */
+    public function getField($field_id)
+    {
+        if (isset($this->fields[$field_id])) {
+            return $this->fields[$field_id];
+        }
+
+        return null;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function getFields()
     {
         return $this->fields;

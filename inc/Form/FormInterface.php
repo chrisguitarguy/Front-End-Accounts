@@ -79,6 +79,15 @@ interface FormInterface
     public function removeField($field_id);
 
     /**
+     * Get a field from the form.
+     *
+     * @since   0.2
+     * @param   string $field_id
+     * @return  FieldInterface|null
+     */
+    public function getField($field_id);
+
+    /**
      * Get all the fields.
      *
      * @since   0.1
