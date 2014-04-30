@@ -185,8 +185,9 @@ class ForgotPassword extends SectionBase
 
         $title = apply_filters('retrieve_password_title', $title); // XXX wp-login.php compat
         $message = apply_filters('retrieve_password_message', $message, $key); // XXX wp-login.php compat
+        $headers = apply_filters('frontend_accounts_forgot_password_email_headers', array(), $user);
 
-        return $message && !wp_mail($user->user_email, $title, $message);
+        return $message && !wp_mail($user->user_email, $title, $message, $headers);
     }
 
     private function getBlogName()
