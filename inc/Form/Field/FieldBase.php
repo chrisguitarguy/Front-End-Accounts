@@ -210,12 +210,16 @@ abstract class FieldBase
             $attr['required'] = 'required';
         }
 
-        if ($cls = $this->getArg('class')) {
-            $attr['class'] = $cls;
-        }
+        $supportedAttributes = apply_filters('frontend_accounts_supported_fields_attr', array(
+            'class',
+            'placeholder',
+            'autocomplete',
+        ), $this);
 
-        if ($placeholder = $this->getArg('placeholder')) {
-            $attr['placeholder'] = $placeholder;
+        foreach ($supportedAttributes as $attrName) {
+            if ($attrVal = $this->getArg($attrName)) {
+                $attr[$attrName] = $attrVal;
+            }
         }
 
         return $attr;
