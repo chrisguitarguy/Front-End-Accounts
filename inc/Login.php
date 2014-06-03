@@ -115,7 +115,7 @@ class Login extends SectionBase
         }
 
         $this->form = Form\Form::create(array(
-            'redirect_to' => isset($_GET['redirect_to']) ? $_GET['redirect_to'] : $this->getDefaultRedirect(),
+            'redirect_to' => isset($_GET['redirect_to']) ? $_GET['redirect_to'] : null,
         ));
 
         $this->form->addField('log', array(
