@@ -64,7 +64,7 @@ class Login extends SectionBase
         do_action('wp_login', $user->user_login, $user); // XXX wp-login.php compat
         do_action('frontend_accounts_login_success', $user, $data, $additional, $this);
 
-        $redirect_to = !empty($data['redirect_to']) ? $data['redirect_to'] : $this->getDefaultRedirect();
+        $redirect_to = !empty($data['redirect_to']) ? $data['redirect_to'] : $this->getDefaultRedirect($user);
 
         wp_safe_redirect(
             apply_filters('frontend_accounts_login_redirect_to', $redirect_to, $user, $data, $additional, $this),
@@ -159,8 +159,8 @@ class Login extends SectionBase
         return apply_filters('frontend_accounts_login_wp_error_message', $msg, $code);
     }
 
-    private function getDefaultRedirect()
+    private function getDefaultRedirect($user)
     {
-        return apply_filters('frontend_accounts_default_login_redirect', static::url('edit'));
+        return apply_filters('frontend_accounts_default_login_redirect', static::url('edit'), $user);
     }
 }
