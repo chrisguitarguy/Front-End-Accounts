@@ -44,7 +44,7 @@ class ResetPassword extends SectionBase
         list($valid, $errors) = $form->validate();
 
         if (!empty($errors)) {
-            foreach ($error as $k => $err) {
+            foreach ($errors as $k => $err) {
                 $this->addError("validiation_{$k}", $err);
             }
 
