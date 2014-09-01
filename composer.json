@@ -1,0 +1,30 @@
+{
+    "name": "chrisguitarguy/Front-End-Accounts",
+    "description": "Account-related forms on the front end of your WordPress website.",
+    "license": "MIT",
+    "version": "1.0",
+    "keywords": ["wordpress", "plugin", "user", "front-end", "profile"],
+    "homepage": "https://github.com/chrisguitarguy/Front-End-Accounts",
+    "type": "wordpress-plugin",
+    "authors": [
+        {
+            "name": "Christopher Davis",
+            "email": "email",
+            "homepage": "http://christopherdavis.me",
+            "role": "Developer"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/chrisguitarguy/Front-End-Accounts/issues",
+        "source": "https://github.com/chrisguitarguy/Front-End-Accounts"
+    },
+    "require": {
+        "php": ">=5.3",
+        "composer/installers": "~1.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Chrisguitarguy\\FrontEndAccounts\\": "inc"
+        }
+    }
+}
