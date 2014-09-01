@@ -246,7 +246,7 @@ Action: `reset_password`
 
 Class: `Chrisguitarguy\FrontEndAccounts\ResetPassword`
 
-**Reset Password**
+**Edit**
 
 Action: `edit`
 
