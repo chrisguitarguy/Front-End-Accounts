@@ -45,7 +45,7 @@ class ResetPassword extends SectionBase
 
         if (!empty($errors)) {
             foreach ($errors as $k => $err) {
-                $this->addError("validiation_{$k}", $err);
+                $this->addError("validation_{$k}", $err);
             }
 
             return $this->dispatchFailed($postdata, $reset_key);
