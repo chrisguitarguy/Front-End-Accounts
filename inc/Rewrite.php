@@ -103,6 +103,7 @@ class Rewrite extends AccountBase
 
     private function dispatchInit()
     {
+        do_action('frontend_accounts_init', $this->section, $this->additional);
         do_action("frontend_accounts_init_{$this->section}", $this->additional);
     }
 
