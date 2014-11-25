@@ -56,6 +56,7 @@ function frontend_accounts_load()
         Accounts\Account::init();
         Accounts\ForgotPassword::init();
         Accounts\ResetPassword::init();
+        Accounts\Seo::init();
 
         if (get_option('users_can_register')) {
             Accounts\Register::init();

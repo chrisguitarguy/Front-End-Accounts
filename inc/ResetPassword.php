@@ -141,6 +141,7 @@ class ResetPassword extends SectionBase
     {
         global $wp_query;
         add_filter('template_redirect', array($this, 'removeTemplate'), 11);
+        add_filter('frontend_accounts_disable_page_title', '__return_true');
         return $wp_query->set_404();
     }
 
