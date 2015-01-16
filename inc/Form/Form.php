@@ -220,6 +220,6 @@ class Form implements FormInterface
 
         $cls = "Chrisguitarguy\\FrontEndAccounts\\Form\\Field\\{$cls}";
 
-        return new $cls($name, $args);
+        return apply_filters('frontend_accounts_field_object', new $cls($name, $args), $name, $args);
     }
 }
