@@ -156,66 +156,70 @@ class Form implements FormInterface
     {
         $type = isset($args['type']) ? $args['type'] : 'text';
 
-        $cls = 'DummyField';
-
         switch ($type) {
-        case 'text':
-            $cls = 'TextInput';
-            break;
-        case 'password':
-            $cls = 'PasswordInput';
-            break;
-        case 'hidden':
-            $cls = 'HiddenInput';
-            break;
-        case 'color':
-            $cls = 'ColorInput';
-            break;
-        case 'date':
-            $cls = 'DateInput';
-            break;
-        case 'datetime':
-            $cls = 'DateTimeInput';
-            break;
-        case 'datetime-local':
-            $cls = 'DateTimeLocalInput';
-            break;
-        case 'email':
-            $cls = 'EmailInput';
-            break;
-        case 'month':
-            $cls = 'MonthInput';
-            break;
-        case 'number':
-            $cls = 'NumberInput';
-            break;
-        case 'search':
-            $cls = 'SearchInput';
-            break;
-        case 'time':
-            $cls = 'TimeInput';
-            break;
-        case 'url':
-            $cls = 'UrlInput';
-            break;
-        case 'week':
-            $cls = 'WeekInput';
-            break;
-        case 'multiple':
-            $cls = 'Multiple';
-            break;
-        case 'radio':
-            $cls = 'Radio';
-            break;
-        case 'select':
-            $cls = 'Select';
-            break;
-        case 'textarea':
-            $cls = 'Textarea';
-            break;
-        case 'checkbox':
-            $cls = 'Checkbox';
-            break;
+            case 'text':
+                $cls = 'TextInput';
+                break;
+            case 'password':
+                $cls = 'PasswordInput';
+                break;
+            case 'hidden':
+                $cls = 'HiddenInput';
+                break;
+            case 'color':
+                $cls = 'ColorInput';
+                break;
+            case 'date':
+                $cls = 'DateInput';
+                break;
+            case 'datetime':
+                $cls = 'DateTimeInput';
+                break;
+            case 'datetime-local':
+                $cls = 'DateTimeLocalInput';
+                break;
+            case 'email':
+                $cls = 'EmailInput';
+                break;
+            case 'month':
+                $cls = 'MonthInput';
+                break;
+            case 'number':
+                $cls = 'NumberInput';
+                break;
+            case 'search':
+                $cls = 'SearchInput';
+                break;
+            case 'time':
+                $cls = 'TimeInput';
+                break;
+            case 'url':
+                $cls = 'UrlInput';
+                break;
+            case 'week':
+                $cls = 'WeekInput';
+                break;
+            case 'multiple':
+                $cls = 'Multiple';
+                break;
+            case 'radio':
+                $cls = 'Radio';
+                break;
+            case 'select':
+                $cls = 'Select';
+                break;
+            case 'textarea':
+                $cls = 'Textarea';
+                break;
+            case 'checkbox':
+                $cls = 'Checkbox';
+                break;
+            case 'file':
+                $cls = 'FileInput';
+                break;
+            default:
+                $cls = 'DummyField';
+                break;
         }
 
         $cls = "Chrisguitarguy\\FrontEndAccounts\\Form\\Field\\{$cls}";
