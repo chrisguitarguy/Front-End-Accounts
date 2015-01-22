@@ -195,6 +195,7 @@ class Account extends SectionBase
         $user->last_name = isset($save['last_name']) ? sanitize_text_field($save['last_name']) : '';
         $user->nickname = isset($save['nickname']) ? sanitize_text_field($save['nickname']) : '';
         $user->display_name = isset($save['display_name']) ? sanitize_text_field($save['display_name']) : '';
+        $user->description = isset($save['description']) ? trim($save['description']) : '';
 
         $password_changed = false;
         if (!empty($save['new_password'])) {
