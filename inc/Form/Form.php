@@ -98,7 +98,7 @@ class Form implements FormInterface
             $this->fields[$field_id]->setValue($this->initial[$field_id]);
         }
 
-        return $this;
+        return $this->fields[$field_id];
     }
 
     /**
