@@ -123,19 +123,22 @@ class Login extends SectionBase
             'validators'    => array(
                 new Validator\NotEmpty(__('Please enter a username', FE_ACCOUNTS_TD)),
             ),
-        ))
-        ->addField('pwd', array(
+        ));
+
+        $this->form->addField('pwd', array(
             'type'          => 'password',
             'label'         => __('Password', FE_ACCOUNTS_TD),
             'validators'    => array(
                 new Validator\NotEmpty(__('Please enter a password', FE_ACCOUNTS_TD)),
             ),
-        ))
-        ->addField('rememberme', array(
+        ));
+
+        $this->form->addField('rememberme', array(
             'type'          => 'checkbox',
             'label'         => __('Remember Me', FE_ACCOUNTS_TD),
-        ))
-        ->addField('redirect_to', array(
+        ));
+
+        $this->form->addField('redirect_to', array(
             'type'          => 'hidden',
         ));
 

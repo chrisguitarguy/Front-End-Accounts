@@ -103,8 +103,9 @@ class ResetPassword extends SectionBase
             'validators'    => array(
                 new Validator\NotEmpty(__('Please enter a new password.', FE_ACCOUNTS_TD)),
             ),
-        ))
-        ->addField('password_again', array(
+        ));
+
+        $this->form->addField('password_again', array(
             'type'          => 'password',
             'label'         => __('Password Again', FE_ACCOUNTS_TD),
             'validators'    => array(
