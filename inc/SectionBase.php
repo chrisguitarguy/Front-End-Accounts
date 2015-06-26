@@ -63,9 +63,11 @@ abstract class SectionBase extends AccountBase
             $this->act('frontend_accounts_after_title', $s);
 
             if (apply_filters("frontend_accounts_show_errors_{$s}", true, $additional)) {
+                echo '<div class="frontend-accounts-errors">';
                 foreach ($this->getErrors() as $key => $errmsg) {
                     echo '<div class="frontend-accounts-error ', esc_attr($key), '">', $errmsg, '</div>';
                 }
+                echo '</div>';
             }
 
             $this->act('frontend_accounts_before_form', $s);
