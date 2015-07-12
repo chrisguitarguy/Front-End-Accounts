@@ -32,7 +32,7 @@ class ForgotPassword extends SectionBase
 
         if (!empty($errors)) {
             foreach ($errors as $k => $err) {
-                $this->addError("vaidation_{$k}", $err);
+                $this->addError("validation_{$k}", $err);
             }
 
             return $this->dispatchFailed($postdata, $additional);

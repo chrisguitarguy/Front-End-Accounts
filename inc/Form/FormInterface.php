@@ -64,7 +64,7 @@ interface FormInterface
      * @access  public
      * @param   string $field_id The field ID/name
      * @param   array $args The field's display arguments
-     * @return  void
+     * @return  Field\FieldInterface The field that was added
      */
     public function addField($field_id, array $args=array());
 

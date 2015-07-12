@@ -45,7 +45,7 @@ class ResetPassword extends SectionBase
 
         if (!empty($errors)) {
             foreach ($errors as $k => $err) {
-                $this->addError("validiation_{$k}", $err);
+                $this->addError("validation_{$k}", $err);
             }
 
             return $this->dispatchFailed($postdata, $reset_key);
@@ -103,8 +103,9 @@ class ResetPassword extends SectionBase
             'validators'    => array(
                 new Validator\NotEmpty(__('Please enter a new password.', FE_ACCOUNTS_TD)),
             ),
-        ))
-        ->addField('password_again', array(
+        ));
+
+        $this->form->addField('password_again', array(
             'type'          => 'password',
             'label'         => __('Password Again', FE_ACCOUNTS_TD),
             'validators'    => array(
@@ -141,6 +142,7 @@ class ResetPassword extends SectionBase
     {
         global $wp_query;
         add_filter('template_redirect', array($this, 'removeTemplate'), 11);
+        add_filter('frontend_accounts_disable_page_title', '__return_true');
         return $wp_query->set_404();
     }
 
