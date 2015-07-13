@@ -209,6 +209,10 @@ class Account extends SectionBase
             } else {
                 $this->addError('pass_error', __('Could not update password.', FE_ACCOUNTS_TD));
             }
+        } else {
+            if (isset($user->data->user_pass)) {
+                unset($user->data->user_pass);
+            }
         }
 
         // other plugins can hook in here and modify things to save.
