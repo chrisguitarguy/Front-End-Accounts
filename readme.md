@@ -25,28 +25,30 @@ Essentially, you'll need to create an `account.php` file in your theme's (or
 child theme's) folder. This file should be just like any other template, except
 you'll replace the loop with a call to `the_account`.
 
-    <?php
-    /**
-     * Template for Account Pages
-     */
+```php
+<?php
+/**
+ * Template for Account Pages
+ */
 
-    !defined('ABSPATH') && exit;
+!defined('ABSPATH') && exit;
 
-    get_header('account');
+get_header('account');
 
-    ?>
-    <div class="row">
+?>
+<div class="row">
 
-        <div class="span8">
-            <?php the_account(); /* where the magic happens */ ?>
-        </div>
-
-        <?php get_sidebar('account'); ?>
-
+    <div class="span8">
+        <?php the_account(); /* where the magic happens */ ?>
     </div>
 
-    <?php
-    get_footer('account');
+    <?php get_sidebar('account'); ?>
+
+</div>
+
+<?php
+get_footer('account');
+```
 
 ## Modifying Sections
 
@@ -61,54 +63,60 @@ methods `addField` and `removeField` which work much as you'd expect.
 
 Don't want your users to be able to edit their account description?
 
-    <?php
-    add_action('frontend_accounts_alter_account_form', function($form) {
-        $form->removeField('description');
-    });
+```php
+<?php
+add_action('frontend_accounts_alter_account_form', function($form) {
+    $form->removeField('description');
+});
+```
 
 Want to add a field for phone number?
 
-    <?php
-    use Chrisguitarguy\FrontEndAccounts\Form;
+```php
+<?php
+use Chrisguitarguy\FrontEndAccounts\Form;
 
-    add_action('frontend_accounts_alter_account_form', function($form) {
-        $form->addField('phone_number', array(
-            'type'          => 'text', // this is the default
-            'validators'    => array(
-                // make sure the field is not empty
-                new Form\Validator\NotEmpty(__('Please enter a phone number', 'your_texdomain')),
-            ),
-            'required'      => true, // HTML5, client side validation
-        ));
-    });
+add_action('frontend_accounts_alter_account_form', function($form) {
+    $form->addField('phone_number', array(
+        'type'          => 'text', // this is the default
+        'validators'    => array(
+            // make sure the field is not empty
+            new Form\Validator\NotEmpty(__('Please enter a phone number', 'your_texdomain')),
+        ),
+        'required'      => true, // HTML5, client side validation
+    ));
+});
+```
 
 And, of course you'll need to save it.
 
-    <?php
-    add_action(
-        'frontend_accounts_account_post_save_user',
-        function($user, $formdata, $account_obj) {
-            // this fires AFTER wp_update_user tries to save the user
+```php
+<?php
+add_action(
+    'frontend_accounts_account_post_save_user',
+    function($user, $formdata, $account_obj) {
+        // this fires AFTER wp_update_user tries to save the user
 
-            // $user is the WP_User object
+        // $user is the WP_User object
 
-            // $formdata is the validated data from the form
+        // $formdata is the validated data from the form
 
-            // $account_obj is the that called do_action, it provides some
-            // helpful methods: addError and removeError for showing errors
-            // to users.
+        // $account_obj is the that called do_action, it provides some
+        // helpful methods: addError and removeError for showing errors
+        // to users.
 
-            // remember the validator above? phone_number should always be set.
-            if (isset($formdata['phone_number'])) {
-                update_user_meta($user->ID, 'yourprefix_phone_number', $formdata['phone_number']);
-            } else {
-                // show an error!
-                $account_obj->addError('no_phone', __('Please provide a phone number.', 'your_textdomain'));
-            }
-        },
-        10,
-        4
-    );
+        // remember the validator above? phone_number should always be set.
+        if (isset($formdata['phone_number'])) {
+            update_user_meta($user->ID, 'yourprefix_phone_number', $formdata['phone_number']);
+        } else {
+            // show an error!
+            $account_obj->addError('no_phone', __('Please provide a phone number.', 'your_textdomain'));
+        }
+    },
+    10,
+    4
+);
+```
 
 ## Adding your Own Account Sections
 
@@ -126,11 +134,13 @@ For our example: we're going to add an imaginary page called favorites.
 To add your own section, you need to "whitelist" it's `{action}` by hooking into
 `frontend_accounts_registered_sections`.
 
-    <?php
-    add_filter('frontend_accounts_registered_sections', function($sections) {
-        $sections[] = 'favorites';
-        return $sections;
-    });
+```php
+<?php
+add_filter('frontend_accounts_registered_sections', function($sections) {
+    $sections[] = 'favorites';
+    return $sections;
+});
+```
 
 **NOTE:** you probably want your section `{action}`'s to be URL friendly. Be
 sure to do that. Frontend accounts does *not* do it for you.
@@ -147,10 +157,12 @@ section gets sent to the client's screen. Comes after the `save` action.
 
 We only really need `frontend_accounts_content_favorites` for our purposes here.
 
-    <?php
-    add_action('frontend_accounts_content_favorites', function() {
-        // some the user's favorites here!
-    });
+```php
+<?php
+add_action('frontend_accounts_content_favorites', function() {
+    // some the user's favorites here!
+});
+```
 
 ## A Note on Templating
 
@@ -180,25 +192,27 @@ class along with its subclasses.
 Everyone section class "cascades" down from a plugins loaded action, so you can
 turn off the entire thing easily. Or you can remove parts of it.
 
-    <?php
-    use Chrisguitarguy\FrontEndAccounts\Account;
+```php
+<?php
+use Chrisguitarguy\FrontEndAccounts\Account;
 
-    add_action('plugins_loaded', function() {
-        // remove the entire account edit section
-        remove_action('plugins_loaded', array(Account::instance(), '_setup'));
-    }, 9); // somewhere before priority 10
+add_action('plugins_loaded', function() {
+    // remove the entire account edit section
+    remove_action('plugins_loaded', array(Account::instance(), '_setup'));
+}, 9); // somewhere before priority 10
 
-    // if you want to replace only parts, you'll need to hook in a bit later.
-    add_action('plugins_loaded', function() {
-        // remove the cotent
-        remove_action('frontend_accounts_content_edit', array(Account::instance(), 'content'));
+// if you want to replace only parts, you'll need to hook in a bit later.
+add_action('plugins_loaded', function() {
+    // remove the cotent
+    remove_action('frontend_accounts_content_edit', array(Account::instance(), 'content'));
 
-        // remove the save callback
-        remove_action('frontend_accounts_save_edit', array(Account::instance(), 'save'));
+    // remove the save callback
+    remove_action('frontend_accounts_save_edit', array(Account::instance(), 'save'));
 
-        // remove the init callback
-        remove_action('frontend_accounts_save_init', array(Account::instance(), 'initSection'));
-    }, 11); // somewhere after priority 10
+    // remove the init callback
+    remove_action('frontend_accounts_save_init', array(Account::instance(), 'initSection'));
+}, 11); // somewhere after priority 10
+```
 
 ## FAQ
 
