@@ -243,7 +243,15 @@ class Register extends SectionBase
         // switch the login url for the new user notification
         add_filter('login_url', array($this, 'switchLoginUrl'), 10, 2);
 
-        wp_new_user_notification($user_id, $this->allowUserPasswords() && $password ? '' : $user_pass);
+        // if the user hasn't registered with a password, send them a notification
+        // email with a link to reset it.
+        if (apply_filters(
+            'frontend_accounts_should_send_password_email',
+            !$this->allowUserPasswords() || !$password,
+            $user_id
+        )) {
+            wp_new_user_notification($user_id);
+        }
 
         // back to normal on the login url
         remove_filter('login_url', array($this, 'switchLoginUrl'), 10, 2);
